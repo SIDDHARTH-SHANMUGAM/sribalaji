@@ -1,0 +1,11 @@
+front end
+    -> login auth
+    -> remove firebase config
+    -> npm i axios
+
+
+back end 
+    -> npm init -y
+    -> npm i express mongoose cors nodemon
+    -> add lines inside scripts in package.json("start": "nodemon server.js")
+
