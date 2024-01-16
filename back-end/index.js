@@ -1,24 +1,21 @@
 const express = require('express')
-const mongoose = require('mongoose')
+const connectDb = require('./config/dbConnect');
+require('dotenv').config()
+
 const cors = require('cors')
 const User = require('./models/UserModel')
 const Counter = require('./models/CounterModel')
 const MonthlyLoan = require('./models/MonthlyLoanModel')
 const multer = require('multer')
 
+connectDb();
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.listen(3001, ()=> {
-    console.log('server is running')
-})
 
-mongoose.connect("mongodb://127.0.0.1:27017/sribalaji")
-.then(()=>{
-    console.log('db connected')
-})
-.catch(()=>{
-    console.log('error occured in db connection')
+
+app.listen(process.env.PORT, ()=> {
+    console.log('server is running')
 })
 
 // login
@@ -266,7 +263,6 @@ app.post('/getLoan', async (req, res) =>{
     res.json({message: 'Network error'})
   }
 })
-
 
 app.post('/handleBill', async (req, res) => {
   const { loanId, paidDues } = req.body;
