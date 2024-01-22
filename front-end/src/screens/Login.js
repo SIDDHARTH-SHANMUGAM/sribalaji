@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
-import addNotification from 'react-push-notification';
 
 function Login() {
   const [firstName, setFirstName] = useState('');
@@ -13,19 +12,7 @@ function Login() {
   const [loginOrSignin, setLoginOrSignin] = useState('login');
   const navigate = useNavigate();
   let loginMask;
-
-  const notify =({message})=>{
-    addNotification({
-      title: 'error',
-      message: message,
-      duration: 4000,
-      native: true,
-
-
-    })
-  }
-  
-
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -36,7 +23,7 @@ function Login() {
       })
       .then(res=>{
         if(res.data.message === "mobile is already Exist"){
-          notify({message: " mobile is already Exist"})
+          setError(" mobile is already Exist")
         }
         else if(res.data.message==="signedIn")
         {
@@ -46,7 +33,7 @@ function Login() {
       })
     }
     catch(e){
-      notify({message: e});
+      setError(e.toString())
     }
   }
 
@@ -63,21 +50,69 @@ function Login() {
         }
         else if(res.data.message==="not Exist")
         {
-          notify({message: "Incorrect Mobile Number"});
+          setError("Mobile Number Not Exist, Make sure Correct Mobile Number");
         }
         else if(res.data.message==="Password is Wrong")
         {
-          notify({message: "Incorrect Password"});
+          setError("Password is Wrong");
         }
       })
-      .catch(e=>{
-        notify({message: e})
+      .catch(e =>{
+        setError(e.toString())
       })
     }
     catch(e){
       console.log(e);
     }
   };
+
+  const check = (val, type)=>{
+    if(type === 'Name')
+    {
+      if(val.match('[0-9]+'))
+      {
+        setError("Name Should not be i numbers");
+      }
+      else
+        setError("");
+    }
+    else if(type === 'Mobile')
+    {
+      if(!val)
+      {
+        setError("");
+      }
+      else if(val.match('[^0-9]'))
+      {
+        setError("Mobile number must be in numbers");
+      }
+      else if(val.length!==10)
+      {
+        setError("Mobile Number should be in 10 digits")
+      }
+      else
+      {
+        setError("");
+      }
+    }
+    else if(type === "Password")
+    {
+      if(val.length===0)
+        setError("");
+      else if(val.length<9)
+        setError("Password should contain atleast 8 character,")
+      else if(!val.match('[A-Z]+'))
+       setError("Password should contain atleast One UpperCase Letter")
+      else if(!val.match('[a-z]+'))
+       setError("Password should contain atleast One LowerCase Letter")
+      else if(!val.match('[0-9]+'))
+       setError("Password should contain atleast One number")
+      else if(!val.match('[ ~!@#$%^&*()`]+'))
+       setError("Password should contain atleast One Special Characters like ~!@#$%^&*()`")
+      else
+        setError("")
+    }
+  }
 
   if(loginOrSignin==='login')
   {
@@ -92,8 +127,7 @@ function Login() {
             <input
               type="text"
               value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              required
+              onChange={(e) => {setMobile(e.target.value); check(e.target.value, "Mobile")}}
             />
             <span>Mobile</span>
           </div>
@@ -101,18 +135,23 @@ function Login() {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              onChange={(e) => {setPassword(e.target.value); setError("")}}
             />
             <span>Password</span>
           </div>
         <div className='empty'></div>
-          <button type="submit">Log in</button>
+        <div>
+          {error===""&&password&&mobile
+            &&
+          <button type="submit">Log In</button>
+          }
+        </div>
         <div className='empty'></div>
         <div className='empty'></div>
       </form>
     </Form>
     <NonForm>
+        <img src='/svg/bitcoin.svg' alt=''></img>
         <Title style={{color: 'white', }}>
           <h1>Welcome Back!</h1>
           <p>To keep connected with us please login</p>
@@ -124,7 +163,8 @@ function Login() {
   }
   if(loginOrSignin ==='signin'){
     loginMask = <>
-      <NonForm>
+        <NonForm>
+        <img src='/svg/saving1.svg' alt=''/>
         <Title style={{color: 'white', }}>
           <h1>Welcome to Sri Balaji!</h1>
           <p>Enter your personal details and start</p>
@@ -143,8 +183,7 @@ function Login() {
             <input
               type="text"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
+              onChange={(e) => { setFirstName(e.target.value); check(e.target.value, "Name")}}
             />
             <span>First Name</span>
           </div>
@@ -152,18 +191,15 @@ function Login() {
             <input
               type="text"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
+              onChange={(e) => {setLastName(e.target.value); check(e.target.value, "Name")}}
             />
             <span>Last Name</span>
           </div>
           <div>
             <input
               type="text"
-              inputMode='none'
               value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              required
+              onChange={(e) => {setMobile(e.target.value); check(e.target.value, "Mobile")}}
             />
             <span>Mobile</span>
           </div>
@@ -172,7 +208,6 @@ function Login() {
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              required
             />
             <span>Address</span>
           </div>
@@ -180,13 +215,15 @@ function Login() {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              onChange={(e) => {setPassword(e.target.value);  check(e.target.value, "Password")}}
             />
             <span>Password</span>
           </div>
           <div>
+            {error===""&&password&&firstName&&lastName&&mobile&&address
+              &&
             <button type="submit">Sign In</button>
+            }
           </div>
         </form>
         <div className='empty'/>
@@ -198,10 +235,39 @@ function Login() {
       <Division>
         {loginMask}
 
+        {error&&
+          
+          <ErrorContainer>
+            <img src='/svg/warning-bro.svg' alt='alert'/>
+            <p>{error}</p>
+          </ErrorContainer>
+        }
       </Division>
     </Container>
   );
 }
+const ErrorContainer = styled.div`
+  background-color: white;
+  width: autopx;
+  height: auto;
+  color: red;
+  top: 50px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+  border-radius: 10px;
+
+  img{
+    height: 40px;
+    border-radius: 10px;
+    background-color: red;
+    padding: 10px;
+  }
+  p{
+    padding: 10px;
+  }
+`;
 const Container = styled.div`
   position: absolute;
   top: 0px;
@@ -303,7 +369,6 @@ const Title = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  top: 50px;
   align-items: center;
   justify-content: center;
   
@@ -324,6 +389,9 @@ const NonForm = styled.div`
     color:white;
     font-size: 16px;
     box-shadow: 2px 0px 5px 2px rgba(0, 0, 0, 0.368);
+   }
+   img{
+    height: 200px;
    }
 `;
 
