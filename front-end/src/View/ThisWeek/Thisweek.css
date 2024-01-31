@@ -1,0 +1,19 @@
+.titles{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    h2{
+        font-size: 14px;
+        width: 100px;
+    }
+    
+}
+
+.thisWeekContainer{
+   padding: 20px;
+    z-index: 2;
+    position: absolute;
+    top: 90px;
+    left: 0px;
+    right: 0px;
+}

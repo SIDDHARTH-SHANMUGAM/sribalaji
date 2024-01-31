@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Navbar from '../components/Navbar';
+import Navbar from '../Navbar/Navbar';
 import Loans from '../components/AllLoans';
 import MakeBill from '../components/MakeBill';
 import AllBills from '../components/AllBills';
+import ThisWeek from '../ThisWeek/ThisWeek';
+import TodayList from '../TodayList/TodayList';
 
 
 function Admin() {
@@ -11,21 +13,29 @@ function Admin() {
   const [showAllLoans, setShowAllLoans] = useState(false);
   const [showAllBills, setShowAllBills] = useState(false);
   const [showMakeBills, setShowMakeBills] = useState(false);
-  let allloansmask;
-  let allbillsmask;
-  let makebillmask;
+  const [showThisWeek, setShowThisWeek] = useState(false);
+  const [showToday, setShowToday] = useState(false);
+  let allLoansmask;
 
   if(showAllLoans)
   {
-    allloansmask = <Loans/>
+    allLoansmask = <Loans/>
   }
   if(showAllBills)
   {
-    allbillsmask = <AllBills/>
+    allLoansmask = <AllBills/>
   }
   if(showMakeBills)
   {
-    makebillmask = <MakeBill/>
+    allLoansmask = <MakeBill/>
+  }
+  if(showThisWeek)
+  {
+    allLoansmask =<ThisWeek/>
+  }
+  if(showToday)
+  {
+    allLoansmask =<TodayList/>
   }
 
   return (
@@ -36,6 +46,8 @@ function Admin() {
           setShowMakeBills(true);
           setShowAllLoans(false);
           setShowAllBills(false);
+          setShowThisWeek(false);
+          setShowToday(false);
           }}>
           <p>Make bills</p>
         </Cards>
@@ -43,6 +55,8 @@ function Admin() {
           setShowAllLoans(true);
           setShowAllBills(false);
           setShowMakeBills(false);
+          setShowThisWeek(false);
+          setShowToday(false);
           }}>
           <p>All Loans</p>
         </Cards>
@@ -50,20 +64,32 @@ function Admin() {
           setShowAllLoans(false);
           setShowAllBills(true);
           setShowMakeBills(false);
+          setShowThisWeek(false);
+          setShowToday(false);
           }}>
           <p>All Bills</p>
         </Cards>
-        <Cards >
+        <Cards className={showToday?'active':''} onClick={()=> {
+          setShowAllLoans(false);
+          setShowAllBills(false);
+          setShowMakeBills(false);
+          setShowThisWeek(false);
+          setShowToday(true);
+          }}>
           <p>Today</p>
         </Cards>
-        <Cards  >
+        <Cards className={showThisWeek?'active':''} onClick={()=> {
+          setShowAllLoans(false);
+          setShowAllBills(false);
+          setShowMakeBills(false);
+          setShowThisWeek(true);
+          setShowToday(false);
+          }}>
           <p>This weak</p>
         </Cards>
       </ListConatiner>
       <Displayer>
-        {allloansmask}
-        {allbillsmask}
-        {makebillmask}
+        {allLoansmask}
       </Displayer>
     </AdminContainer>
   )

@@ -1,5 +1,5 @@
 // import React, { useEffect } from 'react'
-import Navbar from '../components/Navbar';
+import Navbar from '../Navbar/Navbar';
 import styled from 'styled-components';
 import MDProfile from '../components/MDProfile';
 
@@ -11,14 +11,13 @@ function Home() {
     <DemoCont>
       <Navbar />
 	  <Content>
-		<MDProfile />
+		{/* <MDProfile /> */}
 	  </Content>
         
     </DemoCont>
   )
 }
 const DemoCont = styled.div`
-	background-color: #53e3a752;
 	position: absolute;
 	top: 0;
 	left: 0;

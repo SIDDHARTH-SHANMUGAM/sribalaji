@@ -20,3 +20,8 @@ illustrations
   undraw
   ira design
   storyset
+  openpeeps
+  humaans
+
+svgs
+  flaticons

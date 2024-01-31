@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Navbar from '../components/Navbar';
+import Navbar from '../Navbar/Navbar';
 
 function History() {
     const user = JSON.parse(sessionStorage.getItem('user'));

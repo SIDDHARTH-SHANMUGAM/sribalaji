@@ -45,7 +45,7 @@ function MakeBill() {
                     {
                         await axios.post('http://localhost:3001/confirmIncremented', { reqId: 'billId' }).then( async()=>{
                             await axios.post('http://localhost:3001/confirmIncremented', { reqId: 'mlLoanId' }).then(async() =>{
-                                navigate('/home');
+                                navigate('/admin');
                             })
                         })
                     }

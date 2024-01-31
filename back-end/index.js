@@ -263,6 +263,71 @@ app.post('/getLoan', async (req, res) =>{
     res.json({message: 'Network error'})
   }
 })
+app.get('/getThisWeekLoan', async (req, res) => {
+  try{
+    
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const endOfWeek = new Date();
+  endOfWeek.setHours(0, 0, 0, 0);
+  endOfWeek.setDate(today.getDate() + 7);
+  const loans = await MonthlyLoan.find({
+    $and: [
+      {
+        $or: [
+          { "dues.month1.date": { $gte: today, $lte: endOfWeek } },
+          { "dues.month2.date": { $gte: today, $lte: endOfWeek } },
+          { "dues.month3.date": { $gte: today, $lte: endOfWeek } },
+          { "dues.month4.date": { $gte: today, $lte: endOfWeek } },
+          { "dues.month5.date": { $gte: today, $lte: endOfWeek } }
+        ]
+      },
+      { "pendingAmount": { $gt: 0 } }
+    ]
+  });
+  res.json({message:'got',loans:loans})
+  }
+  catch(e)
+  {
+    res.json({message: 'Netwprk error'});
+  }
+})
+app.get('/getTodayLoan', async (req, res) => {
+  try{
+    const today = new Date();
+    console.log(today)
+    console.log(today)
+    const endOfDay = new Date();
+    endOfDay.setDate(today.getDate()+1);
+    console.log(today)
+    console.log(endOfDay)
+    const loans = await MonthlyLoan.find({
+      $and: [
+        {
+          $or: [
+            { "dues.month1.date": { $gte: today, $lte: endOfDay } },
+            { "dues.month2.date": { $gte: today, $lte: endOfDay } },
+            { "dues.month3.date": { $gte: today, $lte: endOfDay } },
+            { "dues.month4.date": { $gte: today, $lte: endOfDay } },
+            { "dues.month5.date": { $gte: today, $lte: endOfDay } }
+          ]
+        },
+        { "pendingAmount": { $gt: 0 } }
+      ]
+    });
+    
+
+
+console.log("Today's Loans:", loans);
+
+  res.json({message:'got',loans:loans})
+  }
+  catch(e)
+  {
+    res.json({message: 'Netwprk error'});
+  }
+})
 
 app.post('/handleBill', async (req, res) => {
   const { loanId, paidDues } = req.body;
@@ -355,3 +420,4 @@ app.post('/updateUser',async (req, res) =>{
       res.json({ message: 'Server error' });
     }
 })
+
