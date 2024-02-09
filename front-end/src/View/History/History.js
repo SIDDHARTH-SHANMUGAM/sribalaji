@@ -11,7 +11,7 @@ function History() {
     {
         async function fetchData()
         {
-            await axios.post('http://localhost:3001/getAllLoans', {message:'getAsBorrower', UserId: user.UserId}).then(res=>{
+            await axios.post('http://localhost:3001/monthlyLoan/getAllLoans', {message:'getAsBorrower', UserId: user.UserId}).then(res=>{
                 if(res.data.message==='got')
                 {
                     setLoansAsBorrower(res.data.loans);
@@ -24,7 +24,7 @@ function History() {
     {
         async function fetchData()
         {
-            await axios.post('http://localhost:3001/getAllLoans', {message:'getAsGaurantor', UserId: user.UserId}).then(res=>{
+            await axios.post('http://localhost:3001/monthlyLoan/getAllLoans', {message:'getAsGaurantor', UserId: user.UserId}).then(res=>{
                 if(res.data.message==='got')
                 {
                     setLoansAsGaurantor(res.data.loans);

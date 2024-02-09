@@ -25,3 +25,31 @@ illustrations
 
 svgs
   flaticons
+
+videos
+  https://pixabay.com/
+
+reference
+  https://www.vool.studio/
+
+
+
+
+  background-color: #53e3a6;
+  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: linear-gradient(45deg, #50a3a2 0%, #53e3a6 100%);
+
+
+
+
+  { 
+  "billNo":20, 
+  "loanType":"Monthly", 
+  "loanNo":20, 
+  "isPayment":true, 
+  "receivedAmount":0, 
+  "paidAmount":2000, 
+  "paidDues":"12"
+}

@@ -1,0 +1,114 @@
+.makeBill{
+    position: relative;
+    top: 100px;
+    display: flex;
+    width: 1100px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+
+    form{
+        display: flex;
+        flex-direction: column;
+        width: 1100px;
+        justify-content: center;
+
+        input{
+            width: 100%;
+            border: 1px solid #53e3a6;
+            border-radius: 3px;
+            outline: none;
+            height: 28px;
+        }
+        span{
+            color: white;
+            position: relative;
+            top: -43px;
+            font-size: 12px;
+            text-transform: uppercase; 
+            background-color: #53e3a6;
+            padding: 2px;
+            border-radius: 2px;
+        }
+        div{
+            padding-bottom: 15px;
+        }
+    }
+
+    .upperDiv{
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-bottom: 20px;
+        align-items: center;
+    }
+
+    .formItems{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profileContainer{
+        width: 700px;
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: space-around;
+        padding-bottom: 40px;
+    }
+    .profileCard{
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        width: 250px;
+        justify-content: center;
+        box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+
+
+        .imgContainer{
+            display: flex;
+            justify-content: center;
+        }
+
+        img{
+            border-radius: 50%;
+            object-fit: cover;
+            height: 100px;
+            width:100px;
+        }
+    }
+    .interest{
+        width:220px;
+    }
+}
+.values{
+    display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  p {
+    font-size: 12px;
+    width: 100px;
+  }
+}
+.billCardContainer{
+    position: relative;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    justify-content: center;
+    padding: 10px;
+}
+
+.billCC{
+    box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+    position: relative;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+
+}

@@ -1,7 +1,6 @@
 // import React, { useEffect } from 'react'
 import Navbar from '../Navbar/Navbar';
 import styled from 'styled-components';
-import MDProfile from '../components/MDProfile';
 
 
 function Home() {
@@ -9,9 +8,8 @@ function Home() {
 
   return (
     <DemoCont>
-      <Navbar />
+	<Navbar />
 	  <Content>
-		{/* <MDProfile /> */}
 	  </Content>
         
     </DemoCont>

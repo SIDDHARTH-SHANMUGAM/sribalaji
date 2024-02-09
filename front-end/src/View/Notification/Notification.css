@@ -1,0 +1,41 @@
+.messageContainer{
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+    
+
+}
+.flex{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.markAsRead{
+	background-color: red;
+	color: white;
+	width: 100px;
+	height: 50px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.msgContainer{
+	width: 800px;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	
+    box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+	img{
+		width: 100px;
+	}
+}
+
+.space{
+	padding: 5px;
+}

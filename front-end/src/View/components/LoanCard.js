@@ -10,20 +10,18 @@ function LoanCard({ loan }) {
   let veiwDetail ;
   let mask;
 
-  const formatDate = (date) => {
-    const formattedDate = new Date(date);
-    const day = String(formattedDate.getDate()).padStart(2, '0');
-    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
-    const year = formattedDate.getFullYear();
-
-    return `${day}/${month}/${year}`;
+ const formatDate = (date) => {
+    const day = date.substring(8, 10)
+    const month = date.substring(5, 7)
+    const year = date.substring(0, 4)
+   return `${day}/${month}/${year}`;
   };
 
   useEffect(() => {
     if (loan) {
       async function fetchData() {
         try {
-          const res = await axios.post('http://localhost:3001/getUser', {
+          const res = await axios.post('http://localhost:3001/user/getUser', {
             message: 'id',
             value: loan.UserId,
           });
@@ -34,7 +32,6 @@ function LoanCard({ loan }) {
           console.error('Error fetching user data:', error);
         }
       }
-
       if (loan.date) {
         const formattedDate = formatDate(loan.date);
         setDate(formattedDate);
@@ -53,9 +50,7 @@ function LoanCard({ loan }) {
     </SingleLoanContainer>
 
     mask= <MenuMask onClick={()=>{setIsToView(false)}}></MenuMask>
-
   }
-
 
   return (
     <LoanCardContainer>
@@ -84,14 +79,12 @@ function LoanCard({ loan }) {
 function Due({monthData, getPaidDues})
 {
     const [isClicked, setIsClicked] = useState(true);
-  const formatDate = (date) => {
-    const formattedDate = new Date(date);
-    const day = String(formattedDate.getDate()).padStart(2, '0');
-    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
-    const year = formattedDate.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  };
+    const formatDate = (date) => {
+      const day = date.substring(8, 10)
+      const month = date.substring(5, 7)
+      const year = date.substring(0, 4)
+      return `${day}/${month}/${year}`;
+    };
 
   const handlePay = ()=>{
     setIsClicked(false)
@@ -115,12 +108,10 @@ return (
 function DueWithoutPay({monthData})
 {
   const formatDate = (date) => {
-    const formattedDate = new Date(date);
-    const day = String(formattedDate.getDate()).padStart(2, '0');
-    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
-    const year = formattedDate.getFullYear();
-
-    return `${day}/${month}/${year}`;
+    const day = date.substring(8, 10)
+    const month = date.substring(5, 7)
+    const year = date.substring(0, 4)
+   return `${day}/${month}/${year}`;
   };
 
 
@@ -136,6 +127,7 @@ return (
     </DueCon>
   );
 }
+
 const Temp = styled.div`
   display: flex;
   flex-direction: row;
@@ -178,6 +170,7 @@ const LoanCardContainer = styled.div`
   flex-direction: column;
   border: 2px solid black;
   padding: 10px;
+  justify-content: center;
 `;
 
 const Values = styled.div`

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import Navbar from '../Navbar/Navbar';
 import axios from 'axios'
+import '../Login/Login.css'
 
 function Profile() {
   const user = JSON.parse(sessionStorage.getItem('user'));
@@ -40,7 +41,7 @@ function Profile() {
   const handleSubmit = async (e)=>{
     e.preventDefault()
     const UserId = user.UserId;
-    await axios.post('http://localhost:3001/updateUser', { UserId, firstName, lastName, address, mobile}).then((res)=>{
+    await axios.put('http://localhost:3001/user/updateProfile', { UserId, firstName, lastName, address, mobile}).then((res)=>{
       if(res.data.message==='updated')
       {
         sessionStorage.setItem('user', JSON.stringify(res.data.user))
@@ -66,7 +67,8 @@ function Profile() {
     if(editProfile)
     {
       boxinEdit=
-      <Container style={{height: '450px'}}>
+        
+      <Container  style={{height: '450px'}}>
         <ImgContainer>
           <img src={user.imageUrl} alt='sorry' />
           {!changePhoto&&<button onClick={()=>setChangePhoto(true)}>Change photo</button>}
@@ -134,7 +136,7 @@ function Profile() {
     if(!editProfile)
     {
       box=
-      <Container>
+      <Container className='drop-up'>
         <ImgContainer>
           <img src={user.imageUrl} alt='sorry' />
           <button onClick={()=>setEditProfile(true)}>Edit profile</button>
@@ -159,36 +161,27 @@ function Profile() {
     }
 
   return (
-    <ProfileContaier>
+      <ProfileContaier>
       <Navbar/>
-      {boxinEdit}
-      {box}
-    </ProfileContaier>
+        <div className='content'>
+          {boxinEdit}
+          {box}
+
+        </div>
+      </ProfileContaier>
   )
 }
 
 const ProfileContaier = styled.div`
-  background-color: #53e3a752;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
   position: absolute;
 	top: 0;
 	left: 0;
-  
-  button{
-    height: 40px;
-    width: 100px;
-    background-color: #40ec66e4;
-    border: 1px solid #53e3a6;
-    border-radius: 20px;
-    color:white;
-    font-size: 16px;
-    box-shadow: 2px 0px 5px 2px rgba(0, 0, 0, 0.368);
+	width: 100%;
+	height: 100%;
+  .content{
+    display: flex;
+    justify-content: center;
   }
-
 `;
 
 const Container = styled.div`
@@ -217,7 +210,7 @@ const ImgContainer = styled.div`
     height: 100px;
     width: 100px;
     border: 2px solid #53e3a6;
-    border-radius: 20px;
+    border-radius: 50%;
     box-shadow: 2px 0px 5px 2px rgba(0, 0, 0, 0.368);
   }
   .img{

@@ -15,6 +15,10 @@
     background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
     background: linear-gradient(45deg, #50a3a2 0%, #53e3a6 100%);
 }
+.point:hover,
+.item:hover{
+  cursor: pointer;
+}
 
 .logo{
     display: flex;
@@ -28,6 +32,17 @@
         top: -5px;
         font-size: 30px;
         letter-spacing: 2px;
+    }
+}
+.log{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        position: relative;
+        height: 50px;
+        padding-bottom: 20px;
     }
 }
 .logout{
@@ -46,7 +61,9 @@
     height: 300px;
     width: 400px;
     z-index: 10;
-    box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 5px 0px 5px 2px rgba(50, 50, 50, 0.815);
    .message{
     img{
         width: 200px;
@@ -57,11 +74,15 @@
 
 .afterLogo{
     padding-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img{
         position: relative;
         top: 10px;
         width: 60px;
     }
+    
 }
 .beforeLogo{
     padding-left: 20px;
@@ -108,7 +129,7 @@
 }
 
 img{
-    width: 40px;
+    width: 30px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -126,3 +147,18 @@ img{
         width: 250px;
     }
 }
+
+.count{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 5px;
+        right: 24px;
+        background-color: red;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        color: white;
+
+    }

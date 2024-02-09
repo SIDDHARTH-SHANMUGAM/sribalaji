@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import './Signin.css'
 
 function Signin() {
   const [firstName, setFirstName] = useState('');
@@ -14,18 +15,37 @@ function Signin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
   try{
-      await axios.post("http://localhost:3001/signup", {
+      await axios.post("http://localhost:3001/user/signIn", {
         firstName,lastName, mobile, address, password
       })
-      .then(res=>{
+      .then(async res=>{
         if(res.data.message === "mobile is already Exist"){
           setError(" mobile is already Exist")
         }
         else if(res.data.message==="signedIn")
         {
           sessionStorage.setItem('user', JSON.stringify(res.data.user))
+          const UserId = res.data.user.UserId;
+          const message = 'Welcome to Sri Balaji Finance! please visit our "About Page" to clarify loans '
+          const isSeen = false;
+          try{
+            await axios.post("http://localhost:3001/msg/addMessage",{
+              UserId, message, isSeen
+            })
+            .then(re =>{
+            console.log('hi')
+              console.log(re);
+            })
+            .catch(er=>{
+              console.log(er);
+            })
+          }
+          catch(e)
+          {
+            console.log(e);
+          }
+
           navigate('/');
         }
       })

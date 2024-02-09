@@ -12,7 +12,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try{
-      await axios.post("http://localhost:3001/", {
+      await axios.post("http://localhost:3001/user/login", {
         mobile, password
       })
       .then(res=>{
@@ -62,7 +62,7 @@ function Login() {
   }
     
   return (
-    <div className='container'>
+    <div className='loginContainer'>
         <form onSubmit={handleLogin} className='drop-left' >
           <img src='/illustrations/login.svg' className='drop-down' alt=''/>
           <div className='ipContainer drop-up'>

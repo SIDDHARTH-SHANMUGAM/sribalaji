@@ -1,12 +1,14 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css'
+import axios from 'axios';
 
 function Navbar() {
     const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false)
     const [isLogout, setIsLogOut] =useState(false)
     const user = JSON.parse(sessionStorage.getItem('user'));
+    const [count, setCount] = useState(0);
 
   let menuicon
   let menu
@@ -19,6 +21,25 @@ function Navbar() {
     sessionStorage.removeItem('user');
     navigate('/');
   }
+  
+  useEffect(() => {
+      fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const UserId = user.UserId;
+      const res = await axios.post('http://localhost:3001/msg/getCount', {
+        UserId : UserId
+      });
+      if(res.data.message==='got')
+      {
+        setCount(res.data.count)
+      }
+    } catch (error) {
+      console.error('Error fetching Count data:', error);
+    } 
+  }
 
 
   if(isLogout)
@@ -26,7 +47,7 @@ function Navbar() {
     logoutModel =<div className='logout'>
       <div className='logoutContainer drop-down'>
         <div className='message'>
-          <img src='/illustrations/Warning.svg' alt='' />
+          <img className='point' src='/illustrations/Warning.svg' alt='' />
           <h2>Are you sure to Logout</h2>
         </div>
           <button onClick={handleLogout}>Confirm</button>
@@ -40,7 +61,7 @@ function Navbar() {
 
   if(user&&showMenu)
   {
-    menuicon = <img src='/svg/cross.svg' alt='' onClick={()=> {setShowMenu(false); setIsLogOut(false);}} />
+    menuicon = <img className='point' src='/svg/cross.svg' alt='' onClick={()=> {setShowMenu(false); setIsLogOut(false);}} />
     menu = 
     <div className='navItems drop-right'>
       <div className='item' onClick={() => {navigate('/'); setShowMenu(false); setIsLogOut(false)}}>
@@ -51,14 +72,18 @@ function Navbar() {
         <img src='/svg/profile.svg' alt='' />
         <h4>Profile</h4>
       </div>
-      <div className='item' onClick={() => {navigate('/history'); setShowMenu(false); setIsLogOut(false)}}>
+      {/* <div className='item' onClick={() => {navigate('/history'); setShowMenu(false); setIsLogOut(false)}}>
         <img src='/svg/activity.svg' alt='' />
         <h4>History</h4>
+      </div> */}
+      <div className='item' onClick={() => {navigate('/allNotification'); setShowMenu(false); setIsLogOut(false)}}>
+        <img style={{width:'35px', paddingLeft:'15px'}} src='/svg/noti.svg'  alt='' />
+        <h4 style={{position:'relative', left:'-8px'}}>Notification</h4>
       </div>
-      <div className='item'>
+      {/* <div className='item'>
         <img src='/svg/setting.svg' alt='' />
         <h4>Setting</h4>
-      </div>
+      </div> */}
       {
         user&&user.isAdmin&&
           <div className='item' onClick={() => {navigate('/admin'); setShowMenu(false); setIsLogOut(false)}}>
@@ -76,9 +101,12 @@ function Navbar() {
   }
   else
   {
-    menuicon = <img src='/svg/menubar.svg' alt='' onClick={()=> setShowMenu(!showMenu)} />
+    menuicon = <img className='point' src='/svg/menubar.svg' alt='' onClick={()=> setShowMenu(!showMenu)} />
   }
-
+  const gotoNoti= async()=>{
+    navigate('/notification');
+    
+  }
 
   return (
     <div>
@@ -93,13 +121,16 @@ function Navbar() {
             <div className='afterLogo'>
               {
                 user&&
-                <img src='/svg/noti.svg' alt=''/>
-
+                <div onClick={gotoNoti}>
+                  <img className='point' src='/svg/noti.svg' alt=''/>
+                  {count!==0&&<p className='count'>{count}</p>}
+                </div>
               }
               {
                 !user&&
-                <div onClick={() => navigate('/login')}>
-                  <h2> Login </h2>
+                <div className='point log' onClick={() => navigate('/login')}>
+                  <img src='/svg/profile.svg' alt=''/>
+                  <h2 > Login </h2>
                 </div>
               }
             </div>

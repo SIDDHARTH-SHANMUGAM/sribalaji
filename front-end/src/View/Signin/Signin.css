@@ -1,0 +1,160 @@
+*{
+  font-family:  Visual Sans Text,sans-serif;
+}
+
+.container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+
+form{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  border-radius: 10px;
+  background-color: #53e3a6;
+  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: linear-gradient(45deg, #50a3a2 0%, #53e3a6 100%);
+  box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.626);
+
+}
+
+.imgImage{
+  object-fit: cover;
+  object-position: center;
+}
+
+@media only screen and (max-width: 600px) {
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 95%;
+
+  }
+  form img{
+    position: absolute;
+    top: 10%;
+    width: 50%;
+
+  }
+  .ipContainer{
+    position: absolute;
+    width: 45%;
+    top: 55%;
+  }
+  .errorBox{
+    width: 50%;
+    background-color: rgba(242, 214, 76, 0.916);
+    box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+  }
+  .errorBox img{
+    width: 20%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  form{
+    justify-content: space-around;
+  }
+  form img{
+    top: 10%;
+    width: 50%;
+  }
+  .errorBox{
+    max-width: 350px;
+    background-color: rgba(28, 22, 22, 0.71);
+    box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+  }
+  .errorBox img{
+    width: 20%;
+    border-radius: 10%;
+
+  }
+
+}
+.errorBox{
+  color: white;
+  font-size: larger;
+  bottom: 5px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  p{
+    padding: 5px;
+  }
+}
+
+}
+.drop-left {
+ animation: drop-left 1s ease 200ms backwards;
+}
+.drop-down {
+ animation: drop-down 0.6s ease 200ms backwards;
+}
+.drop-down2 {
+ animation: drop-down 1.5s ease 300ms backwards;
+}
+.drop-up {
+ animation: drop-up 1s ease 200ms backwards;
+}
+.drop-right {
+ animation: drop-right 0.3s ease-in 200ms backwards;
+ 
+}
+
+@keyframes drop-left {
+ from {
+  opacity: 0;
+  transform: translateX(100px);
+ }
+ to {
+  opacity: 1;
+  transform: translate(0px);
+ }
+}
+@keyframes drop-down {
+ from {
+  opacity: 0;
+  transform: translateY(-100px);
+ }
+ to {
+  opacity: 1;
+  transform: translate(0px);
+ }
+}
+@keyframes drop-up {
+ from {
+  opacity: 0;
+  transform: translateY(100px);
+ }
+ to {
+  opacity: 1;
+  transform: translate(0px);
+ }
+}
+@keyframes drop-right {
+ from {
+  opacity: 0;
+  transform: translateX(-50px);
+ }
+ to {
+  opacity: 1;
+  transform: translate(0px);
+ }
+}

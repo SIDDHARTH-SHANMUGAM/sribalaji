@@ -2,7 +2,7 @@
   font-family:  Visual Sans Text,sans-serif;
 }
 
-.container{
+.loginContainer{
   position: absolute;
   top: 0px;
   left: 0px;
@@ -11,10 +11,8 @@
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: rgba(245, 245, 245, 0.943);
   overflow: hidden;
 
-}
 
 form{
   display: flex;
@@ -24,13 +22,18 @@ form{
   align-items: center;
   height: 500px;
   border-radius: 10px;
-  box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
   background-color: #53e3a6;
   background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
   background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
   background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
   background: linear-gradient(45deg, #50a3a2 0%, #53e3a6 100%);
+  box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.626);
 
+}
+
+.imgImage{
+  object-fit: cover;
+  object-position: center;
 }
 
 @media only screen and (max-width: 600px) {
@@ -97,11 +100,15 @@ form{
   }
 }
 
+}
 .drop-left {
  animation: drop-left 1s ease 200ms backwards;
 }
 .drop-down {
- animation: drop-down 1s ease 200ms backwards;
+ animation: drop-down 0.6s ease 200ms backwards;
+}
+.drop-down2 {
+ animation: drop-down 1.5s ease 300ms backwards;
 }
 .drop-up {
  animation: drop-up 1s ease 200ms backwards;
@@ -114,7 +121,7 @@ form{
 @keyframes drop-left {
  from {
   opacity: 0;
-  transform: translateX(100px);
+  transform: translateX(500px);
  }
  to {
   opacity: 1;
